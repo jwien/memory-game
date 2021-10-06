@@ -77,7 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	const grid = document.querySelector('.grid');
 	// hook up text displays for scoring and matches feedback
 	const resultDisplay = document.querySelector('#result');
+	// Display max number of possible matches with however many cards are on board
+	const resultDisplayMax = document.querySelector('#result-max');
+	resultDisplayMax.textContent = String(cardArray.length / 2);
 	const lastMoveDisplay = document.querySelector('#last-move');
+	// message when user wins game
+	// const resultDisplayWin = document.querySelector('#result-win');
 	// create empty arrays to track cards as player interacts
 	var cardsChosen = [];
 	var cardsChosenId = [];
@@ -119,11 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		cardsChosen = [];
 		cardsChosenId = [];
 		// update score display (resultDisplay)
-		resultDisplay.textContent = cardsWon.length;
+		resultDisplay.textContent = String(cardsWon.length);
 		// check if player won the game by finding all matches
 		// (score will be equal to initial # of cards / 2)
 		if (cardsWon.length === cardArray.length/2) {
-			resultDisplay.textContent = 'Winner!'
+			lastMoveDisplay.textContent = 'You win!';
 		}
 	}
 
