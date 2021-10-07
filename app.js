@@ -82,16 +82,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	resultDisplayMax.textContent = String(cardArray.length / 2);
 	const lastMoveDisplay = document.querySelector('#last-move');
 	// create empty arrays to track cards as player interacts
-	var cardsChosen = [];
-	var cardsChosenId = [];
-	var cardsWon = [];
+	let cardsChosen = [];
+	let cardsChosenId = [];
+	let cardsWon = [];
 
 	// fill board with card layout from cardArray
 	function createBoard() {
 		for (let i = 0; i < cardArray.length; i++) {
 			const card = document.createElement('img');
 			card.setAttribute('src', 'img/cardback.png');
-			card.setAttribute('data-id', i);
+			card.setAttribute('data-id', String(i));
 			card.addEventListener('click', flipCard);
 			grid.appendChild(card);
 		}
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// check for matches
 	function checkForMatch() {
-		var cards = document.querySelectorAll('img');
+		let cards = document.querySelectorAll('img');
 		const optionOneId = cardsChosenId[0];
 		const optionTwoId = cardsChosenId[1];
 		// deep comparison of the two chosen cards
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function flipCard() {
 		// only flipCard if there are less than 2 cards in cardsChosen
 		if (cardsChosen.length < 2) {
-			var cardId = this.getAttribute('data-id');
+			let cardId = this.getAttribute('data-id');
 			// check if the card chosen has not yet already been removed through matching
 			if (this.getAttribute('src') !== 'img/blank.png') {
 				cardsChosen.push(cardArray[cardId].name);
