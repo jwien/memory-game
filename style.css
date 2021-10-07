@@ -1,3 +1,7 @@
+.game-body {
+	max-width: 524px;
+}
+
 .grid {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -8,5 +12,8 @@
 }
 
 .game-info {
-	color: red;
+	display: flex;
+	justify-content: space-evenly;
+
+	color: dimgrey;
 }
