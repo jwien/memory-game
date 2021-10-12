@@ -77,18 +77,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	const grid = document.querySelector('.grid');
 	// hook up text displays for scoring and matches feedback
 	const resultDisplay = document.querySelector('#result');
+	// Display max number of possible matches with however many cards are on board
+	const resultDisplayMax = document.querySelector('#result-max');
+	resultDisplayMax.textContent = String(cardArray.length / 2);
 	const lastMoveDisplay = document.querySelector('#last-move');
 	// create empty arrays to track cards as player interacts
-	var cardsChosen = [];
-	var cardsChosenId = [];
-	var cardsWon = [];
+	let cardsChosen = [];
+	let cardsChosenId = [];
+	let cardsWon = [];
 
 	// fill board with card layout from cardArray
 	function createBoard() {
 		for (let i = 0; i < cardArray.length; i++) {
 			const card = document.createElement('img');
 			card.setAttribute('src', 'img/cardback.png');
-			card.setAttribute('data-id', i);
+			card.setAttribute('data-id', String(i));
 			card.addEventListener('click', flipCard);
 			grid.appendChild(card);
 		}
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// check for matches
 	function checkForMatch() {
-		var cards = document.querySelectorAll('img');
+		let cards = document.querySelectorAll('img');
 		const optionOneId = cardsChosenId[0];
 		const optionTwoId = cardsChosenId[1];
 		// deep comparison of the two chosen cards
@@ -119,19 +122,20 @@ document.addEventListener('DOMContentLoaded', () => {
 		cardsChosen = [];
 		cardsChosenId = [];
 		// update score display (resultDisplay)
-		resultDisplay.textContent = cardsWon.length;
+		resultDisplay.textContent = String(cardsWon.length);
 		// check if player won the game by finding all matches
 		// (score will be equal to initial # of cards / 2)
 		if (cardsWon.length === cardArray.length/2) {
-			resultDisplay.textContent = 'Winner!'
+			lastMoveDisplay.textContent = 'You win!';
 		}
 	}
 
 	// flip card
 	function flipCard() {
 		// only flipCard if there are less than 2 cards in cardsChosen
-		if (cardsChosen.length < 2) {
-			var cardId = this.getAttribute('data-id');
+		// and the cards are not already removed from play
+		if (cardsChosen.length < 2 && (this.getAttribute('src') !== 'img/blank.png')) {
+			let cardId = this.getAttribute('data-id');
 			cardsChosen.push(cardArray[cardId].name);
 			cardsChosenId.push(cardId);
 			this.setAttribute('src', cardArray[cardId].img);
