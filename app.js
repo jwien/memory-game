@@ -133,9 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	// flip card
 	function flipCard() {
 		// only flipCard if there are less than 2 cards in cardsChosen
+		// and the cards are not already removed from play
 		if (cardsChosen.length < 2 && (this.getAttribute('src') !== 'img/blank.png')) {
 			let cardId = this.getAttribute('data-id');
-			// check if the card chosen has not yet already been removed through matching
 			cardsChosen.push(cardArray[cardId].name);
 			cardsChosenId.push(cardId);
 			this.setAttribute('src', cardArray[cardId].img);
