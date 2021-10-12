@@ -133,17 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	// flip card
 	function flipCard() {
 		// only flipCard if there are less than 2 cards in cardsChosen
-		if (cardsChosen.length < 2) {
+		if (cardsChosen.length < 2 && (this.getAttribute('src') !== 'img/blank.png')) {
 			let cardId = this.getAttribute('data-id');
 			// check if the card chosen has not yet already been removed through matching
-			if (this.getAttribute('src') !== 'img/blank.png') {
-				cardsChosen.push(cardArray[cardId].name);
-				cardsChosenId.push(cardId);
-				this.setAttribute('src', cardArray[cardId].img);
-				// if player has picked two cards, script should checkForMatch
-				if (cardsChosen.length === 2) {
-					setTimeout(checkForMatch, 500);
-				}
+			cardsChosen.push(cardArray[cardId].name);
+			cardsChosenId.push(cardId);
+			this.setAttribute('src', cardArray[cardId].img);
+			// if player has picked two cards, script should checkForMatch
+			if (cardsChosen.length === 2) {
+				setTimeout(checkForMatch, 500);
 			}
 		}
 	}
